@@ -1,7 +1,5 @@
 import QtQuick 1.0
 
-//StupidGitTest
-
 Rectangle {
     width: 800
     height: 600
