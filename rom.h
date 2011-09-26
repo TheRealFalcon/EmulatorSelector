@@ -1,20 +1,17 @@
 #ifndef ROM_H
 #define ROM_H
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtCore/Qt>
+#include <QtCore/QMetaType>
+#include <QtCore/QString>
 
-class Rom : public QSortFilterProxyModel
-{
-public:
-    enum RomRoles {
-        FileRole = Qt::UserRole + 1,
-        DirectoryRole,
-        ExtensionRole,
-        ExecutableRole,
-        ArgumentsRole
-    };
-    Rom(QObject *parent = 0);
-};
+typedef struct rom_struct {
+    QString file;
+    QString directory;
+    QString extension;
+    QString executable;
+    QString arguments;
+} Rom;
+
+Q_DECLARE_METATYPE(rom_struct)
 
 #endif // ROM_H

@@ -28,15 +28,21 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    rom.cpp
+    romModel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    rom.h \
-    emulator.h
+    emulator.h \
+    romModel.h \
+    rom.h
+
+
+
+
+
 
 
 

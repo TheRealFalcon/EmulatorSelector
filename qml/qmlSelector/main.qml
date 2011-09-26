@@ -82,7 +82,7 @@ Rectangle {
 
         delegate: Component {
             id: romsDelegate
-            Text { text: modelData }
+            Text { text: file }
         }
     }
 

@@ -1,7 +1,8 @@
 #include <QtGui/QApplication>
+#include <QtGui/QSortFilterProxyModel>
 #include <QtDeclarative/QDeclarativeContext>
 #include "qmlapplicationviewer.h"
-#include "rom.h"
+#include "romModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,11 +10,9 @@ int main(int argc, char *argv[])
 
     QmlApplicationViewer viewer;
 
-    Rom *rom = new Rom();
-    viewer.rootContext()->setContextProperty("romListModel", rom);
-    //QStringList dataList;
-    //dataList.append("Abc");
-    //viewer.rootContext()->setContextProperty("romListModel", dataList);
+    QSortFilterProxyModel *model = new QSortFilterProxyModel();
+    model->setSourceModel(new RomModel());
+    viewer.rootContext()->setContextProperty("romListModel", model);
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/qmlSelector/main.qml"));
