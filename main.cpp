@@ -1,8 +1,6 @@
 #include <QtGui/QApplication>
 #include "qmlapplicationviewer.h"
 
-//Testing pushing to git clone
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
