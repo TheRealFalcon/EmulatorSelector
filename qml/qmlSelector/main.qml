@@ -54,7 +54,7 @@ Rectangle {
         id: countryCodesList
         width: 200
         height: parent.height
-        x: emulatorList.width + emulatorList.width
+        x: emulatorList.width + standardCodesList.width
         y: 0
         model: countryCodesModel
         delegate: countryCodesDelegate
@@ -69,6 +69,20 @@ Rectangle {
             source: "settings.xml"
             query: '/Selector/Code[@type="Country"]/value'
             XmlRole { name: "countryItems"; query: 'string()' }
+        }
+    }
+
+    ListView {
+        id: romsList
+        width: 200
+        height: parent.height
+        x: emulatorList.width + standardCodesList.width + countryCodesList.width
+        y: 0
+        model: romListModel
+
+        delegate: Component {
+            id: romsDelegate
+            Text { text: modelData }
         }
     }
 
