@@ -35,6 +35,8 @@ include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    rom.h
+    rom.h \
+    emulator.h
+
 
 

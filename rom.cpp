@@ -8,7 +8,16 @@ Rom::Rom(QObject *parent)
 {
     qDebug() << "hello there" << endl;
 
+    QHash<int, QByteArray> roles;
+    roles[FileRole] = "file";
+    roles[DirectoryRole] = "directory";
+    roles[ExtensionRole] = "extension";
+    roles[ExecutableRole] = "executable";
+    roles[ArgumentsRole] = "arguments";
+    setRoleNames(roles);
+
     QStandardItemModel *fileModel = new QStandardItemModel();
+    fileModel->appendRow(new QStandardItem("Hello"));
 //    foreach (Emulator emulator, emulatorModel->emulatorList()) {
 //        foreach (QString searchPath, emulator.searchPaths) {
 //            QDir dir(searchPath);
