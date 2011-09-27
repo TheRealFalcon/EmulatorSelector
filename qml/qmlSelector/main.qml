@@ -78,7 +78,7 @@ Rectangle {
         height: parent.height
         x: emulatorList.width + standardCodesList.width + countryCodesList.width
         y: 0
-        model: romListModel
+        model: romModel
 
         delegate: Component {
             id: romsDelegate

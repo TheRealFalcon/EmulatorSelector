@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
     QSortFilterProxyModel *model = new QSortFilterProxyModel();
     model->setSourceModel(new RomModel());
-    viewer.rootContext()->setContextProperty("romListModel", model);
+    viewer.rootContext()->setContextProperty("romModel", model);
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/qmlSelector/main.qml"));
