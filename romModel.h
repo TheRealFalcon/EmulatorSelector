@@ -17,7 +17,7 @@ public:
         ArgumentsRole
     };
     RomModel(QObject *parent = 0);
-    void addRom(Rom rom);
+    Q_INVOKABLE void addRom(Rom rom);
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role) const;
 private:
