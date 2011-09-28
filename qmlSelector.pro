@@ -3,7 +3,7 @@ folder_01.source = qml/qmlSelector
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
-QT += xmlpatterns
+QT += xml
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =

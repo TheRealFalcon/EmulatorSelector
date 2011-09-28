@@ -1,15 +1,49 @@
-#include <QtXmlPatterns/QXmlQuery>
 #include <QtCore/QStringList>
+#include <QtCore/QFile>
+#include <QtCore/QList>
 #include <QtCore/QDebug>
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
 #include "settings.h"
 
-void getEmulators()
+const QString Settings::CONFIG_FILE = "qml/qmlSelector/settings.xml";
+
+Settings::Settings()
 {
-    QXmlQuery query;
-    query.setQuery("doc('./settings.xml')/*");
+    doc = new QDomDocument();
+    QFile file(CONFIG_FILE);
+    if (!file.open(QIODevice::ReadWrite)) {
+        qDebug() << "Couldn't open file";
+        return;
+    }
+    if (!doc->setContent(&file)) {
+        qDebug() << "Couldn't set content";
+        file.close();
+        return;
+    }
+    file.close();
 
-    QStringList blah;
-    query.evaluateTo(&blah);
+}
 
-    qDebug() << blah;
+Settings::~Settings()
+{
+    delete doc;
+}
+
+QList<Emulator> Settings::getEmulators()
+{
+    QList<Emulator> emulators;
+    for (QDomElement emulatorElement = doc ->firstChildElement().firstChildElement("Emulator"); !emulatorElement.isNull(); emulatorElement = emulatorElement.nextSiblingElement("Emulator")) {
+        Emulator newEmulator;
+        newEmulator.name = emulatorElement.attribute("name");
+        newEmulator.path= emulatorElement.firstChildElement("Path").text();
+        newEmulator.args = emulatorElement.firstChildElement("Args").text();
+        newEmulator.extension = emulatorElement.firstChildElement("Extension").text();
+        for (QDomElement dirElement = emulatorElement.firstChildElement("Search").firstChildElement("dir"); !dirElement.isNull(); dirElement = dirElement.nextSiblingElement("dir")) {
+            newEmulator.searchPaths.append(dirElement.text());
+        }
+        emulators.append(newEmulator);
+    }
+
+    return emulators;
 }
