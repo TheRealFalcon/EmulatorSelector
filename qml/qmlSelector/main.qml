@@ -4,6 +4,8 @@ Rectangle {
     width: 800
     height: 600
 
+
+
     ListView {
         id: emulatorList
         width: 200

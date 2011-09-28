@@ -1,13 +1,3 @@
-<!-- <Selector>
-  <Emulator name="SNES">
-    <Path>C:/proj/SNES.exe</Path>
-    <Args>-a -b</Args>
-    <Extension>.smc</Extension>
-    <Search>
-      <dir>C:/proj/SNES</dir>
-    </Search>
-  </Emulator>
-</Selector> -->
 <Selector>
   <Code delimiters="[]" type="Standard">
     <value key="!">Verified Good</value>
