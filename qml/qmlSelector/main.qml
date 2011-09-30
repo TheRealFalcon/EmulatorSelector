@@ -15,11 +15,19 @@ Rectangle {
         delegate: emulatorDelegate
         highlight: Rectangle { color: "lightblue"; radius: 2; width: 200}
         focus: true
+        currentIndex: -1
+
+        onCurrentIndexChanged: {
+            console.log("hi")
+        }
 
         Component {
             id: emulatorDelegate
-            Text { text: name }
-
+            Item {
+                width: emulatorList.width; height: 20
+                Text { text: name }
+                MouseArea { anchors.fill: parent; onClicked: emulatorList.currentIndex = index}
+            }
         }
 
         XmlListModel {
