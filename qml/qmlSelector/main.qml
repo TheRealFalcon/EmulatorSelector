@@ -18,7 +18,8 @@ Rectangle {
         currentIndex: -1
 
         onCurrentIndexChanged: {
-            console.log("hi")
+            console.log("hi there")
+            romFilter.onEmulatorSelectionChanged()
         }
 
         Component {
@@ -26,7 +27,13 @@ Rectangle {
             Item {
                 width: emulatorList.width; height: 20
                 Text { text: name }
-                MouseArea { anchors.fill: parent; onClicked: emulatorList.currentIndex = index}
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        emulatorList.currentIndex = index
+
+                    }
+                }
             }
         }
 

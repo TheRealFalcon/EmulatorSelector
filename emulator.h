@@ -2,6 +2,8 @@
 #define EMULATOR_H
 
 #include <QtCore/QMetaType>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 typedef struct struct_emulator {
     QString name;
