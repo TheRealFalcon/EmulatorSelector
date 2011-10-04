@@ -46,10 +46,31 @@ RomModel* RomFilter::getRoms()
     return romModel;
 }
 
-void RomFilter::onEmulatorSelectionChanged()
+void RomFilter::onEmulatorSelectionChanged(QString emulatorExtension)
 {
-    qDebug() << "hi";
+    qDebug() << regex("", "", emulatorExtension);
+    QRegExp regExp(regex("", "", emulatorExtension), Qt::CaseInsensitive, QRegExp::RegExp);
+    _model->setFilterRegExp(regExp);
 }
+
+QString RomFilter::regex(QString firstLetter, QString code, QString extension)
+{
+    QString pattern = "^";
+
+    //First character set
+    pattern += firstLetter;
+
+    //body
+    pattern += ".*";
+
+    //extension
+    pattern += extension;
+
+    pattern += "$";
+    return pattern;
+}
+
+
 
 //void MainWindow::on_emulatorView_selection_changed(const QItemSelection &selected, const QItemSelection &deselected)
 //{

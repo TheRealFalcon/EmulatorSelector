@@ -6,6 +6,7 @@
 #include <QtCore/Qt>
 //#include <QtCore/QObject>
 #include <QObject>
+#include <QDeclarativeItem>
 
 class RomFilter : public QObject
 {
@@ -15,9 +16,11 @@ public:
     RomFilter(QObject* parent=0);
     ~RomFilter();
     QSortFilterProxyModel* model();
-    Q_INVOKABLE void onEmulatorSelectionChanged();
+    Q_INVOKABLE void onEmulatorSelectionChanged(QString emulatorName);
 private:
     QSortFilterProxyModel* _model;
+    QString _extensions;
+    QString regex(QString firstLetter, QString code, QString extension);
     RomModel* getRoms();
 };
 

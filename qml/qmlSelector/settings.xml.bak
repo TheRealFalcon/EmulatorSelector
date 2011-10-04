@@ -40,15 +40,23 @@
     <Args>-a -b</Args>
     <Extension>.smc</Extension>
     <Search>
-      <dir>G:/roms/snes/SNES Roms (GoodMerged, 2.04)</dir>
+      <dir>C:/proj/SNES</dir>
     </Search>
   </Emulator>
-  <Emulator name="N64">
-    <Path>C:/proj/N64.exe</Path>
+  <Emulator name="NES">
+    <Path>C:/proj/NES.exe</Path>
     <Args>-nes</Args>
-    <Extension>.z64</Extension>
+    <Extension>.nes</Extension>
     <Search>
-      <dir>G:/roms/64/roms</dir>
+      <dir>C:/proj/NES</dir>
+    </Search>
+  </Emulator>
+  <Emulator name="Game Boy">
+    <Path>C:/proj/GB.exe</Path>
+    <Args>-gb</Args>
+    <Extension>.gb</Extension>
+    <Search>
+      <dir>C:/proj/GB</dir>
     </Search>
   </Emulator>
 </Selector>

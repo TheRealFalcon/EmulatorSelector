@@ -18,7 +18,6 @@ class QSortFilterProxyModel;
 
 typedef struct RomRegex_struct {
     QStringList firstLetters;
-    //QString body;
     QMultiHash<QString, QString> codes;
     QStringList extensions;
 

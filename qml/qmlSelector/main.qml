@@ -17,16 +17,21 @@ Rectangle {
         focus: true
         currentIndex: -1
 
-        onCurrentIndexChanged: {
-            console.log("hi there")
-            romFilter.onEmulatorSelectionChanged()
+        XmlListModel {
+            id: emulatorModel
+            source: "settings.xml"
+            query: "/Selector/Emulator"
+            XmlRole { name: "name"; query: "@name/string()" }
+            XmlRole { name: "extension"; query: "Extension/string()" }
         }
 
         Component {
             id: emulatorDelegate
             Item {
+                property variant properties: model
                 width: emulatorList.width; height: 20
-                Text { text: name }
+                Text {
+                    text: name }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -37,12 +42,11 @@ Rectangle {
             }
         }
 
-        XmlListModel {
-            id: emulatorModel
-            source: "settings.xml"
-            query: "/Selector/Emulator"
-            XmlRole { name: "name"; query: "@name/string()" }
+        onCurrentIndexChanged: {
+            romFilter.onEmulatorSelectionChanged(emulatorList.currentItem.properties.extension)
         }
+
+
     }
 
     ListView {
