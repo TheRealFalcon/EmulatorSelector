@@ -10,7 +10,8 @@ ListView {
     focus: true
     currentIndex: -1
 
-    delegate {
+    Component {
+        id: listViewDelegate
         Item {
             property variant properties: model
             width: parent.width; height: 20

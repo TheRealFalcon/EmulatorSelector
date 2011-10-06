@@ -4,44 +4,6 @@ Rectangle {
     width: 800
     height: 600
 
-
-
-//    ListView {
-//        id: emulatorList
-//        width: 200
-//        height: parent.height
-//        transformOrigin: Item.Center
-//        model: emulatorModel
-//        highlight: Rectangle { color: "lightblue"; radius: 2; width: 200}
-//        focus: true
-//        currentIndex: -1
-
-//        XmlListModel {
-//            id: emulatorModel
-//            source: "settings.xml"
-//            query: "/Selector/Emulator"
-//            XmlRole { name: "name"; query: "@name/string()" }
-//            XmlRole { name: "extension"; query: "Extension/string()" }
-//        }
-
-//        delegate {
-//            Item {
-//                property variant properties: model
-//                width: parent.width; height: 20
-//                Text { text: name }
-//                MouseArea {
-//                    anchors.fill: parent
-//                    onClicked: {
-//                        emulatorList.currentIndex = index
-
-//                    }
-//                }
-//            }
-//        }
-//        onCurrentIndexChanged: {
-//            romFilter.onEmulatorSelectionChanged(emulatorList.currentItem.properties.extension)
-//        }
-//    }
     FilterList {
         id: emulatorList
         position: 0
@@ -63,76 +25,65 @@ Rectangle {
     FilterList {
         id: standardCodesList
         position: 1
-        model: standardCodesModel
+        model: standardCodesDisplayModel
 
         XmlListModel {
-            id: standardCodesModel
+            id: standardCodesDisplayModel
             source: "settings.xml"
             query: '/Selector/Code[@type="Standard"]/value'
-            XmlRole { name: "display"; query: 'string()' }
+            XmlRole { name: "display"; query: "string()" }
+            XmlRole { name: "code"; query: "@key/string()" }
+        }
+
+        XmlListModel {
+            id: standardCodesDelimiterModel
+            source: "settings.xml"
+            query: '/Selector/Code[@type="Standard"]'
+            XmlRole { name: "delimiter"; query: "@delimiters/string()" }
         }
 
         onCurrentIndexChanged: {
-            romFilter.onCodeSelectionChanged(standardCodesList.currentItem.properties.display)
+            romFilter.onCodeSelectionChanged(standardCodesDelimiterModel.get(0).delimiter,
+                                             standardCodesList.currentItem.properties.code)
         }
     }
 
-//    ListView {
-//        id: standardCodesList
-//        width: 200
-//        height: parent.height
-//        x: emulatorList.width
-//        y: 0
-//        model: standardCodesModel
-//        delegate: standardCodesDelegate
-
-//        Component {
-//            id: standardCodesDelegate
-//            Text { text: standardItems }
-//        }
-
-//        XmlListModel {
-//            id: standardCodesModel
-//            source: "settings.xml"
-//            query: '/Selector/Code[@type="Standard"]/value'
-//            XmlRole { name: "standardItems"; query: 'string()' }
-//        }
-//    }
-
-    ListView {
+    FilterList {
         id: countryCodesList
-        width: 200
-        height: parent.height
-        x: emulatorList.width + standardCodesList.width
-        y: 0
-        model: countryCodesModel
-        delegate: countryCodesDelegate
+        position: 2
+        model: countryCodesDisplayModel
 
-        Component {
-            id: countryCodesDelegate
-            Text { text: countryItems }
+        XmlListModel {
+            id: countryCodesDisplayModel
+            source: "settings.xml"
+            query: '/Selector/Code[@type="Country"]/value'
+            XmlRole { name: "display"; query: 'string()' }
+            XmlRole { name: "code"; query: '@key/string()' }
         }
 
         XmlListModel {
-            id: countryCodesModel
-            source: "settings.xml"
-            query: '/Selector/Code[@type="Country"]/value'
-            XmlRole { name: "countryItems"; query: 'string()' }
+            id: countryCodesDelimiterModel
+            source: 'settings.xml'
+            query: '/Selector/Code[@type="Country"]'
+            XmlRole { name: "delimiter"; query: "@delimiters/string()" }
+        }
+
+        onCurrentIndexChanged: {
+            romFilter.onCodeSelectionChanged(countryCodesDelimiterModel.get(0).delimiter,
+                                             countryCodesList.currentItem.properties.code)
         }
     }
 
-    ListView {
+    FilterList {
+        property string display: file
         id: romsList
-        width: 200
-        height: parent.height
-        x: emulatorList.width + standardCodesList.width + countryCodesList.width
-        y: 0
+        position: 3
         model: romModel
 
-        delegate: Component {
-            id: romsDelegate
-            Text { text: file }
-        }
+        //delegate: Component {
+        //    id: romsDelegate
+        //    Text { text: file }
+        //}
     }
 
 

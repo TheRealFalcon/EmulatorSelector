@@ -8,7 +8,7 @@ class RomRegex
 public:
     RomRegex();
     void setFirstLetter(const QString &firstLetter);
-    void setCode(const QString &code);
+    void setCode(const QString &delimiter, const QString &code);
     void setExtension(const QString &extension);
     QString pattern();
 private:

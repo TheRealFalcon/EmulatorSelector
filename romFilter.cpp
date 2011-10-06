@@ -58,14 +58,7 @@ void RomFilter::onCodeSelectionChanged(QString delimiter, QString code)
 {
     _regex.setCode(delimiter, code);
     _model->setFilterRegExp(_regex.pattern());
-    //    foreach (QString delimiter, codes.uniqueKeys()) {
-    //        Q_ASSERT(delimiter.size() == 2);
-    //        QString codeStart = QString(delimiter.at(0));
-    //        QString codeEnd = QString(delimiter.at(1));
-    //        QStringList codeValues(codes.values(delimiter));
-    //        pattern += "\\" + codeStart + "(" + codeValues.join("|") + ")\\" + codeEnd;
-    //    }
-
+    qDebug() << _regex.pattern();
 }
 
 void RomFilter::onLetterSelectionChanged(QString firstLetter)
