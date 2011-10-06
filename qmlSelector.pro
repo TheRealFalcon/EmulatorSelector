@@ -32,18 +32,22 @@ symbian:TARGET.CAPABILITY += NetworkServices
 SOURCES += main.cpp \
     romModel.cpp \
     settings.cpp \
-    romFilter.cpp
+    romFilter.cpp \
+    romRegex.cpp
 
 HEADERS += \
     emulator.h \
     romModel.h \
     rom.h \
     settings.h \
-    romFilter.h
+    romFilter.h \
+    romRegex.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
+
+
 
 
 

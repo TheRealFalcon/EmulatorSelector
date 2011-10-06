@@ -1,5 +1,6 @@
 #include "romFilter.h"
 #include "romModel.h"
+#include "romRegex.h"
 #include "settings.h"
 #include "emulator.h"
 
@@ -12,6 +13,7 @@ RomFilter::RomFilter(QObject* parent):
 {
     _model = new QSortFilterProxyModel();
     _model->setSourceModel(getRoms());
+    _model->setFilterRole(RomModel::FileRole);
 }
 
 RomFilter::~RomFilter()
@@ -48,91 +50,24 @@ RomModel* RomFilter::getRoms()
 
 void RomFilter::onEmulatorSelectionChanged(QString emulatorExtension)
 {
-    qDebug() << regex("", "", emulatorExtension);
-    QRegExp regExp(regex("", "", emulatorExtension), Qt::CaseInsensitive, QRegExp::RegExp);
-    _model->setFilterRegExp(regExp);
+    _regex.setExtension(emulatorExtension);
+    _model->setFilterRegExp(_regex.pattern());
 }
 
-QString RomFilter::regex(QString firstLetter, QString code, QString extension)
+void RomFilter::onCodeSelectionChanged(QString code)
 {
-    QString pattern = "^";
-
-    //First character set
-    pattern += firstLetter;
-
-    //body
-    pattern += ".*";
-
-    //extension
-    pattern += extension;
-
-    pattern += "$";
-    return pattern;
+    _regex.setCode(code);
+    _model->setFilterRegExp(_regex.pattern());
 }
 
+void RomFilter::onLetterSelectionChanged(QString firstLetter)
+{
+    _regex.setFirstLetter(firstLetter);
+    _model->setFilterRegExp(_regex.pattern());
+}
 
+void RomFilter::onRomSelected()
+{
+    //stub
+}
 
-//void MainWindow::on_emulatorView_selection_changed(const QItemSelection &selected, const QItemSelection &deselected)
-//{
-
-//    //Based on current implementation, I can't select/deselect more than one thing at once.
-//    //Assertion is to insure it stays that way.
-//    Q_ASSERT(selected.indexes().size() < 2);
-//    Q_ASSERT(deselected.indexes().size() < 2);
-
-//    if (!selected.isEmpty()) {
-//        this->regex.extensions.append("\\" + emulatorModel->getEmulator(selected.indexes().at(0)).extension);
-//    }
-//    if (!deselected.isEmpty()) {
-//        this->regex.extensions.removeOne("\\" + emulatorModel->getEmulator(deselected.indexes().at(0)).extension);
-//    }
-
-//    qDebug() << this->regex.pattern();
-//    QRegExp regExp(this->regex.pattern(), Qt::CaseInsensitive, QRegExp::RegExp);
-//    proxyModel->setFilterRegExp(regExp);
-//}
-
-//void MainWindow::on_codeView_selection_changed(const QItemSelection &selected, const QItemSelection &deselected)
-//{
-//    if (!selected.isEmpty()) {
-//        Code code = selected.indexes().at(0).data(Qt::UserRole+1).value<Code>();
-//        this->regex.codes.insert(code.delimiters, code.key);
-//    }
-//    if (!deselected.isEmpty()) {
-//        Code code = deselected.indexes().at(0).data(Qt::UserRole+1).value<Code>();
-//        this->regex.codes.remove(code.delimiters, code.key);
-//    }
-
-//    qDebug() << this->regex.pattern();
-
-//    QRegExp regExp(this->regex.pattern(), Qt::CaseInsensitive, QRegExp::RegExp);
-//    proxyModel->setFilterRegExp(regExp);
-//}
-
-//void MainWindow::on_letterView_selection_changed(const QItemSelection &selected, const QItemSelection &deselected)
-//{
-//    if (!selected.isEmpty()) {
-//        this->regex.firstLetters.append(selected.indexes().at(0).data().toString());
-//    }
-//    if (!deselected.isEmpty()) {
-//        this->regex.firstLetters.removeOne(deselected.indexes().at(0).data().toString());
-//    }
-
-//    qDebug() << this->regex.pattern();
-
-//    QRegExp regExp(this->regex.pattern(), Qt::CaseInsensitive, QRegExp::RegExp);
-//    proxyModel->setFilterRegExp(regExp);
-//}
-
-//void MainWindow::on_fileView_doubleClicked(QModelIndex index)
-//{
-//    int i = 0;
-//    QString romFile = index.sibling(0, i++).data().value<QString>();
-//    QString romDir = index.sibling(0, i++).data().value<QString>();
-//    //QString romExt = index.sibling(0, i++).data().value<QString>();
-//    QString romEmulatorExe = index.sibling(0, i++).data().value<QString>();
-//    QString romArgs = index.sibling(0, i).data().value<QString>();
-//    //qDebug() << romFile << romDir << romExt << romEmulatorExe << romArgs;
-//    QProcess::execute(romEmulatorExe, QStringList() << romDir + "/" + romFile << romArgs);
-
-//}
