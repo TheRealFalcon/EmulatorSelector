@@ -19,7 +19,7 @@ public:
     ~RomFilter();
     QSortFilterProxyModel* model();
     Q_INVOKABLE void onEmulatorSelectionChanged(QString emulatorName);
-    Q_INVOKABLE void onCodeSelectionChanged(QString code);
+    Q_INVOKABLE void onCodeSelectionChanged(QString delimeter, QString code);
     Q_INVOKABLE void onLetterSelectionChanged(QString firstLetter);
     Q_INVOKABLE void onRomSelected();
 private:

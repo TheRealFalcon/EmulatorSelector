@@ -6,70 +6,98 @@ Rectangle {
 
 
 
-    ListView {
+//    ListView {
+//        id: emulatorList
+//        width: 200
+//        height: parent.height
+//        transformOrigin: Item.Center
+//        model: emulatorModel
+//        highlight: Rectangle { color: "lightblue"; radius: 2; width: 200}
+//        focus: true
+//        currentIndex: -1
+
+//        XmlListModel {
+//            id: emulatorModel
+//            source: "settings.xml"
+//            query: "/Selector/Emulator"
+//            XmlRole { name: "name"; query: "@name/string()" }
+//            XmlRole { name: "extension"; query: "Extension/string()" }
+//        }
+
+//        delegate {
+//            Item {
+//                property variant properties: model
+//                width: parent.width; height: 20
+//                Text { text: name }
+//                MouseArea {
+//                    anchors.fill: parent
+//                    onClicked: {
+//                        emulatorList.currentIndex = index
+
+//                    }
+//                }
+//            }
+//        }
+//        onCurrentIndexChanged: {
+//            romFilter.onEmulatorSelectionChanged(emulatorList.currentItem.properties.extension)
+//        }
+//    }
+    FilterList {
         id: emulatorList
-        width: 200
-        height: parent.height
-        transformOrigin: Item.Center
+        position: 0
         model: emulatorModel
-        delegate: emulatorDelegate
-        highlight: Rectangle { color: "lightblue"; radius: 2; width: 200}
-        focus: true
-        currentIndex: -1
 
         XmlListModel {
             id: emulatorModel
             source: "settings.xml"
             query: "/Selector/Emulator"
-            XmlRole { name: "name"; query: "@name/string()" }
+            XmlRole { name: "display"; query: "@name/string()" }
             XmlRole { name: "extension"; query: "Extension/string()" }
-        }
-
-        Component {
-            id: emulatorDelegate
-            Item {
-                property variant properties: model
-                width: emulatorList.width; height: 20
-                Text {
-                    text: name }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        emulatorList.currentIndex = index
-
-                    }
-                }
-            }
         }
 
         onCurrentIndexChanged: {
             romFilter.onEmulatorSelectionChanged(emulatorList.currentItem.properties.extension)
         }
-
-
     }
 
-    ListView {
+    FilterList {
         id: standardCodesList
-        width: 200
-        height: parent.height
-        x: emulatorList.width
-        y: 0
+        position: 1
         model: standardCodesModel
-        delegate: standardCodesDelegate
-
-        Component {
-            id: standardCodesDelegate
-            Text { text: standardItems }
-        }
 
         XmlListModel {
             id: standardCodesModel
             source: "settings.xml"
             query: '/Selector/Code[@type="Standard"]/value'
-            XmlRole { name: "standardItems"; query: 'string()' }
+            XmlRole { name: "display"; query: 'string()' }
+        }
+
+        onCurrentIndexChanged: {
+            romFilter.onCodeSelectionChanged(standardCodesList.currentItem.properties.display)
         }
     }
+
+//    ListView {
+//        id: standardCodesList
+//        width: 200
+//        height: parent.height
+//        x: emulatorList.width
+//        y: 0
+//        model: standardCodesModel
+//        delegate: standardCodesDelegate
+
+//        Component {
+//            id: standardCodesDelegate
+//            Text { text: standardItems }
+//        }
+
+//        XmlListModel {
+//            id: standardCodesModel
+//            source: "settings.xml"
+//            query: '/Selector/Code[@type="Standard"]/value'
+//            XmlRole { name: "standardItems"; query: 'string()' }
+//        }
+//    }
 
     ListView {
         id: countryCodesList
