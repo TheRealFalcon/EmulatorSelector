@@ -14,6 +14,7 @@ RomModel::RomModel(QObject *parent)
     roles[ExtensionRole] = "extension";
     roles[ExecutableRole] = "executable";
     roles[ArgumentsRole] = "arguments";
+    roles[DisplayRole] = "display";
     setRoleNames(roles);
 }
 
@@ -48,6 +49,8 @@ QVariant RomModel::data(const QModelIndex &index, int role) const
         return rom.executable;
     case ArgumentsRole:
         return rom.arguments;
+    case DisplayRole:
+        return rom.file;
     }
     return QVariant();
 }

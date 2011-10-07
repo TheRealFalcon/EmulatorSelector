@@ -14,7 +14,8 @@ public:
         DirectoryRole,
         ExtensionRole,
         ExecutableRole,
-        ArgumentsRole
+        ArgumentsRole,
+        DisplayRole
     };
     RomModel(QObject *parent = 0);
     void addRom(Rom rom);

@@ -18,7 +18,12 @@ Rectangle {
         }
 
         onCurrentIndexChanged: {
-            romFilter.onEmulatorSelectionChanged(emulatorList.currentItem.properties.extension)
+            if (currentIndex < 0) {
+                romFilter.onEmulatorSelectionChanged("")
+            }
+            else {
+                romFilter.onEmulatorSelectionChanged(emulatorList.currentItem.properties.extension)
+            }
         }
     }
 
@@ -43,8 +48,15 @@ Rectangle {
         }
 
         onCurrentIndexChanged: {
-            romFilter.onCodeSelectionChanged(standardCodesDelimiterModel.get(0).delimiter,
-                                             standardCodesList.currentItem.properties.code)
+            if (currentIndex < 0) {
+                //romFilter.removeCode...
+                romFilter.onCodeSelectionChanged("()", ".*") //short term hack
+            }
+            else {
+                //romFilter.addCode...
+                romFilter.onCodeSelectionChanged(standardCodesDelimiterModel.get(0).delimiter,
+                                                 standardCodesList.currentItem.properties.code)
+            }
         }
     }
 
@@ -69,41 +81,23 @@ Rectangle {
         }
 
         onCurrentIndexChanged: {
-            romFilter.onCodeSelectionChanged(countryCodesDelimiterModel.get(0).delimiter,
-                                             countryCodesList.currentItem.properties.code)
+            if (currentIndex < 0) {
+                //romFilter.removeCode...
+                romFilter.onCodeSelectionChanged("[]", ".*")  //short term hack
+            }
+            else {
+                //romFilter.addCode...
+                romFilter.onCodeSelectionChanged(countryCodesDelimiterModel.get(0).delimiter,
+                                                 countryCodesList.currentItem.properties.code)
+            }
         }
     }
 
     FilterList {
-        property string display: file
         id: romsList
         position: 3
         model: romModel
-
-        //delegate: Component {
-        //    id: romsDelegate
-        //    Text { text: file }
-        //}
     }
 
 
 }
-
-// Q_INVOKABLE void AppHelper::write(QString path, QString data)
-//{
-//    QFile file( path );
-//    file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
-//    QTextStream out(&file);
-//    out << data;
-//    file.close();
-//}
-
-//...in main.cpp...
-//    AppHelper *appHelper = new AppHelper();
-//    view.rootContext()->setContextProperty("helper", appHelper);
-
-//...in QML...
-//    ...
-//    var xml = Script.getXmlStart();
-//    window.path = "trail_" + dateStamp + ".gpx";
-//    helper.write(window.path, xml);

@@ -9,9 +9,7 @@ ListView {
     highlight: Rectangle { color: "lightblue"; radius: 2; width: 200}
     focus: true
     currentIndex: -1
-
-    Component {
-        id: listViewDelegate
+    delegate {
         Item {
             property variant properties: model
             width: parent.width; height: 20
@@ -19,7 +17,12 @@ ListView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    currentList.currentIndex = index
+                    if (currentList.currentIndex == index) {
+                        currentList.currentIndex = -1
+                    }
+                    else {
+                        currentList.currentIndex = index
+                    }
                 }
             }
         }
