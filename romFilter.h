@@ -18,10 +18,11 @@ public:
     RomFilter(QObject* parent=0);
     ~RomFilter();
     QSortFilterProxyModel* model();
-    Q_INVOKABLE void onEmulatorSelectionChanged(QString emulatorName);
-    Q_INVOKABLE void onCodeSelectionChanged(QString delimeter, QString code);
-    Q_INVOKABLE void onLetterSelectionChanged(QString firstLetter);
-    Q_INVOKABLE void onRomSelected();
+    Q_INVOKABLE void setEmulator(QString emulatorName);
+    Q_INVOKABLE void addCodeFilter(QString delimeter, QString code);
+    Q_INVOKABLE void removeCodeFilter(QString delimiter, QString code);
+    Q_INVOKABLE void setLetter(QString firstLetter);
+    Q_INVOKABLE void startRom();
 private:
     QSortFilterProxyModel* _model;
     RomRegex _regex;

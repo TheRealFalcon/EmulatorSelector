@@ -48,26 +48,31 @@ RomModel* RomFilter::getRoms()
     return romModel;
 }
 
-void RomFilter::onEmulatorSelectionChanged(QString emulatorExtension)
+void RomFilter::setEmulator(QString emulatorExtension)
 {
     _regex.setExtension(emulatorExtension);
     _model->setFilterRegExp(_regex.pattern());
 }
 
-void RomFilter::onCodeSelectionChanged(QString delimiter, QString code)
+void RomFilter::addCodeFilter(QString delimiter, QString code)
 {
     _regex.setCode(delimiter, code);
     _model->setFilterRegExp(_regex.pattern());
     qDebug() << _regex.pattern();
 }
 
-void RomFilter::onLetterSelectionChanged(QString firstLetter)
+void RomFilter::removeCodeFilter(QString delimiter, QString code)
+{
+
+}
+
+void RomFilter::setLetter(QString firstLetter)
 {
     _regex.setFirstLetter(firstLetter);
     _model->setFilterRegExp(_regex.pattern());
 }
 
-void RomFilter::onRomSelected()
+void RomFilter::startRom()
 {
     //stub
 }
