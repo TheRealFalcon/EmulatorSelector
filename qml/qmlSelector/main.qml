@@ -6,6 +6,8 @@ Rectangle {
 
     FilterList {
         id: emulatorList
+        x: 0
+        y: 0
         position: 0
         model: emulatorModel
 
@@ -19,10 +21,10 @@ Rectangle {
 
         onCurrentIndexChanged: {
             if (currentIndex < 0) {
-                romFilter.onEmulatorSelectionChanged("")
+                romFilter.setEmulator("")
             }
             else {
-                romFilter.onEmulatorSelectionChanged(emulatorList.currentItem.properties.extension)
+                romFilter.setEmulator(emulatorList.currentItem.properties.extension)
             }
         }
     }
@@ -49,12 +51,10 @@ Rectangle {
 
         onCurrentIndexChanged: {
             if (currentIndex < 0) {
-                //romFilter.removeCode...
-                romFilter.onCodeSelectionChanged("()", ".*") //short term hack
+                romFilter.removeCodeFilter(standardCodesDelimiterModel.get(0).delimiter, previousItem.code)
             }
             else {
-                //romFilter.addCode...
-                romFilter.onCodeSelectionChanged(standardCodesDelimiterModel.get(0).delimiter,
+                romFilter.addCodeFilter(standardCodesDelimiterModel.get(0).delimiter,
                                                  standardCodesList.currentItem.properties.code)
             }
         }
@@ -82,12 +82,10 @@ Rectangle {
 
         onCurrentIndexChanged: {
             if (currentIndex < 0) {
-                //romFilter.removeCode...
-                romFilter.onCodeSelectionChanged("[]", ".*")  //short term hack
+                romFilter.removeCodeFilter(countryCodesDelimiterModel.get(0).delimiter, previousItem.code)
             }
             else {
-                //romFilter.addCode...
-                romFilter.onCodeSelectionChanged(countryCodesDelimiterModel.get(0).delimiter,
+                romFilter.addCodeFilter(countryCodesDelimiterModel.get(0).delimiter,
                                                  countryCodesList.currentItem.properties.code)
             }
         }

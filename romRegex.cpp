@@ -1,9 +1,11 @@
 #include "romRegex.h"
 
+#include <QtCore/QStringList>
+
 RomRegex::RomRegex()
 {
     _firstLetter = "";
-    _code = "";
+    //_codes = "";
     _extension = "";
 }
 
@@ -17,7 +19,13 @@ QString RomRegex::pattern()
     //body
     pattern += ".*";
 
-    pattern += _code;
+    foreach (QString delimiter, _codes.uniqueKeys()) {
+        Q_ASSERT(delimiter.size() == 2);
+        QString codeStart = QString(delimiter.at(0));
+        QString codeEnd = QString(delimiter.at(1));
+        QStringList codeValues(_codes.values(delimiter));
+        pattern += "\\" + codeStart + "(" + codeValues.join("|") + ")\\" + codeEnd;
+    }
 
     //Anything else before ext
     pattern += ".*";
@@ -36,9 +44,12 @@ void RomRegex::setFirstLetter(const QString &firstLetter)
 
 void RomRegex::setCode(const QString &delimiter, const QString &code)
 {
-    QString codeStart = QString(delimiter.at(0));
-    QString codeEnd = QString(delimiter.at(1));
-    _code = "\\" + codeStart + "(" + code + ")\\" + codeEnd;
+    _codes.insert(delimiter, code);
+}
+
+void RomRegex::removeCode(const QString &delimiter, const QString &code)
+{
+    _codes.remove(delimiter, code);
 }
 
 void RomRegex::setExtension(const QString &extension)
