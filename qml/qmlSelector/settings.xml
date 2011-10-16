@@ -36,8 +36,8 @@
     <value key="4">USA and Brazil</value>
   </Code>
   <Emulator name="SNES">
-    <Path>C:/proj/SNES.exe</Path>
-    <Args>-a -b</Args>
+    <Path>G:/roms/snes/zsnesw.exe</Path>
+    <Args></Args>
     <Extension>.smc</Extension>
     <Search>
       <dir>G:/roms/snes/SNES Roms (GoodMerged, 2.04)</dir>

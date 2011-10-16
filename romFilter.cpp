@@ -7,6 +7,7 @@
 #include <QtGui/QSortFilterProxyModel>
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
+#include <QtCore/QProcess>
 
 RomFilter::RomFilter(QObject* parent):
     QObject(parent)
@@ -72,16 +73,9 @@ void RomFilter::setLetter(const QString &firstLetter)
     _model->setFilterRegExp(_regex.pattern());
 }
 
-void RomFilter::startRom()
+void RomFilter::startRom(const QString &executable, const QString &directory, const QString &file, const QString &arguments)
 {
-    //int i = 0;
-    //QString romFile = index.sibling(0, i++).data().value<QString>();
-    //QString romDir = index.sibling(0, i++).data().value<QString>();
-    //QString romExt = index.sibling(0, i++).data().value<QString>();
-    //QString romEmulatorExe = index.sibling(0, i++).data().value<QString>();
-    //QString romArgs = index.sibling(0, i).data().value<QString>();
-    //qDebug() << romFile << romDir << romExt << romEmulatorExe << romArgs;
-    //QProcess::execute(romEmulatorExe, QStringList() << romDir + "/" + romFile << romArgs);
-    qDebug() << "startRom called";
+    QProcess::execute(executable, QStringList() << directory + "/" + file << arguments);
+    //qDebug() << executable << directory << file << arguments;
 }
 

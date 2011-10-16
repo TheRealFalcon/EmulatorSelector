@@ -147,7 +147,10 @@ Rectangle {
                 onSelected()
             }
             function onSelected() {
-                console.log("In onSelected")
+                romFilter.startRom(romsList.currentItem.properties.executable,
+                                   romsList.currentItem.properties.directory,
+                                   romsList.currentItem.properties.file,
+                                   romsList.currentItem.properties.arguments)
             }
         }
     }
