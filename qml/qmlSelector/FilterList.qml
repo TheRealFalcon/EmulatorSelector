@@ -1,20 +1,33 @@
 import QtQuick 1.0
 
 ListView {
-    property int position
     property variant previousItem
     id: currentList
-    x: 200 * position
-    width: 200
+    width: parent.width / 4
     height: parent.height
-    highlight: Rectangle { color: "lightblue"; radius: 2; width: 200}
+    highlight: Rectangle { color: "#0000ff"; radius: 2; width: 200}
     focus: true
     currentIndex: -1
+    //anchors.leftMargin: 10
     delegate: Component {
         Item {
+            id: item1
             property variant properties: model
-            width: parent.width; height: 20
-            Text { text: display }
+            width: parent.width
+            height: 20
+            Text {
+                color: "#ffffff"
+                text: display
+                width: parent.width
+                //text: parent.width
+                clip: true
+                wrapMode: Text.NoWrap
+                style: Text.Raised
+                font.pointSize: 12
+                styleColor: "#030000"
+                font.family: "Georgia"
+                verticalAlignment: Text.AlignVCenter
+            }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
