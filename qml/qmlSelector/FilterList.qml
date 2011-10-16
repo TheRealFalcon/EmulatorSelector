@@ -3,9 +3,9 @@ import QtQuick 1.0
 ListView {
     property variant previousItem
     id: currentList
-    width: parent.width / 4
+
     height: parent.height
-    highlight: Rectangle { color: "#0000ff"; radius: 2; width: 200}
+    highlight: Rectangle { color: "#0000ff"; radius: 2; }
     focus: true
     currentIndex: -1
     //anchors.leftMargin: 10
@@ -21,6 +21,7 @@ ListView {
                 width: parent.width
                 //text: parent.width
                 clip: true
+                focus: true
                 wrapMode: Text.NoWrap
                 style: Text.Raised
                 font.pointSize: 12
@@ -31,6 +32,7 @@ ListView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    currentList.focus = true
                     if (currentList.currentIndex == index) {
                         currentList.previousItem = properties
                         currentList.currentIndex = -1
@@ -38,6 +40,14 @@ ListView {
                     else {
                         currentList.currentIndex = index
                     }
+                }
+                onDoubleClicked: {
+                    console.log("Double clicked")
+                    onSelected()
+                }
+                Keys.onPressed: {
+                    console.log("Enter pressed")
+                    onSelected()
                 }
             }
         }

@@ -74,6 +74,14 @@ void RomFilter::setLetter(const QString &firstLetter)
 
 void RomFilter::startRom()
 {
-    //stub
+    //int i = 0;
+    //QString romFile = index.sibling(0, i++).data().value<QString>();
+    //QString romDir = index.sibling(0, i++).data().value<QString>();
+    //QString romExt = index.sibling(0, i++).data().value<QString>();
+    //QString romEmulatorExe = index.sibling(0, i++).data().value<QString>();
+    //QString romArgs = index.sibling(0, i).data().value<QString>();
+    //qDebug() << romFile << romDir << romExt << romEmulatorExe << romArgs;
+    //QProcess::execute(romEmulatorExe, QStringList() << romDir + "/" + romFile << romArgs);
+    qDebug() << "startRom called";
 }
 

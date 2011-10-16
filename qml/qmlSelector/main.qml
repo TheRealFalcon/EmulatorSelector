@@ -21,15 +21,19 @@ Rectangle {
     }
     clip: false
     smooth: false
+    focus: true
    // transformOrigin: Item.Center
 
     Row {
+        focus: true
         spacing: 10
         width: parent.width
         height: parent.height
+
         FilterList {
             id: emulatorList
-            //position: 0
+            width: parent.width / 6
+            KeyNavigation.right: standardCodesList
             model: emulatorModel
 
             XmlListModel {
@@ -52,9 +56,9 @@ Rectangle {
 
         FilterList {
             id: standardCodesList
-            //position: 1
+            width: parent.width / 6
+            KeyNavigation.left: emulatorList
             model: standardCodesDisplayModel
-            //anchors.left: emulatorList.right
 
             XmlListModel {
                 id: standardCodesDisplayModel
@@ -84,6 +88,7 @@ Rectangle {
 
         FilterList {
             id: countryCodesList
+            width: parent.width / 6
             //position: 2
             model: countryCodesDisplayModel
             //anchors.left: standardCodesList.right
@@ -115,10 +120,44 @@ Rectangle {
         }
 
         FilterList {
+            id: lettersList
+            width: parent.width / 20
+            model: lettersModel
+
+            ListModel {
+                id: lettersModel
+            }
+
+            onCurrentIndexChanged: {
+                if (currentIndex < 0) {
+                    romFilter.setLetter("")
+                }
+                else {
+                    romFilter.setLetter(lettersList.currentItem.properties.display)
+                }
+            }
+        }
+
+        FilterList {
             id: romsList
-            //position: 3
+            width: parent.width / 2
             model: romModel
-            //anchors.left: countryCodesList.right
+            Keys.onEnterPressed: {
+                console.log("Enter was pressed")
+                onSelected()
+            }
+            function onSelected() {
+                console.log("In onSelected")
+            }
         }
     }
+
+    function makeLetters() {
+        var i
+        for (i=65; i<91; i++) {
+            lettersModel.append({display: String.fromCharCode(i)})
+        }
+    }
+
+    Component.onCompleted: makeLetters();
 }

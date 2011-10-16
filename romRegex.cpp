@@ -1,6 +1,7 @@
 #include "romRegex.h"
 
 #include <QtCore/QStringList>
+#include <QtCore/QDebug>
 
 RomRegex::RomRegex()
 {
@@ -25,15 +26,17 @@ QString RomRegex::pattern()
         QString codeEnd = QString(delimiter.at(1));
         QStringList codeValues(_codes.values(delimiter));
         pattern += "\\" + codeStart + "(" + codeValues.join("|") + ")\\" + codeEnd;
+        pattern += ".*";
     }
 
     //Anything else before ext
-    pattern += ".*";
+    //pattern += ".*";
 
     //extension
     pattern += _extension;
 
     pattern += "$";
+    //qDebug() << pattern;
     return pattern;
 }
 
