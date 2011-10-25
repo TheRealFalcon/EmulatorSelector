@@ -37,6 +37,7 @@ QString RomRegex::pattern()
 
     pattern += "$";
     //qDebug() << pattern;
+    qDebug() << pattern;
     return pattern;
 }
 
