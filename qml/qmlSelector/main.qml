@@ -1,8 +1,5 @@
 import QtQuick 1.0
 
-//Rectangle {
-//    width: 800
-//    height: 600
 Rectangle {
     width: 800
     height: 600
@@ -76,12 +73,12 @@ Rectangle {
             }
 
             onCurrentIndexChanged: {
-                if (currentIndex < 0) {
-                    romFilter.removeCodeFilter(standardCodesDelimiterModel.get(0).delimiter, previousItem.code)
+                romFilter.clearCodeFilter()
+                if (standardCodesList.currentIndex > -1) {
+                    romFilter.addCodeFilter(standardCodesDelimiterModel.get(0).delimiter, standardCodesList.currentItem.properties.code)
                 }
-                else {
-                    romFilter.addCodeFilter(standardCodesDelimiterModel.get(0).delimiter,
-                                                     standardCodesList.currentItem.properties.code)
+                if (countryCodesList.currentIndex > -1) {
+                    romFilter.addCodeFilter(countryCodesDelimiterModel.get(0).delimiter, countryCodesList.currentItem.properties.code)
                 }
             }
         }
@@ -109,12 +106,12 @@ Rectangle {
             }
 
             onCurrentIndexChanged: {
-                if (currentIndex < 0) {
-                    romFilter.removeCodeFilter(countryCodesDelimiterModel.get(0).delimiter, previousItem.code)
+                romFilter.clearCodeFilter()
+                if (standardCodesList.currentIndex > -1) {
+                    romFilter.addCodeFilter(standardCodesDelimiterModel.get(0).delimiter, standardCodesList.currentItem.properties.code)
                 }
-                else {
-                    romFilter.addCodeFilter(countryCodesDelimiterModel.get(0).delimiter,
-                                                     countryCodesList.currentItem.properties.code)
+                if (countryCodesList.currentIndex > -1) {
+                    romFilter.addCodeFilter(countryCodesDelimiterModel.get(0).delimiter, countryCodesList.currentItem.properties.code)
                 }
             }
         }
@@ -146,11 +143,12 @@ Rectangle {
                 console.log("Enter was pressed")
                 onSelected()
             }
-            function onSelected() {
-                romFilter.startRom(romsList.currentItem.properties.executable,
-                                   romsList.currentItem.properties.directory,
-                                   romsList.currentItem.properties.file,
-                                   romsList.currentItem.properties.arguments)
+
+        function onSelected() {
+            romFilter.startRom(romsList.currentItem.properties.executable,
+                               romsList.currentItem.properties.directory,
+                               romsList.currentItem.properties.file,
+                               romsList.currentItem.properties.arguments)
             }
         }
     }

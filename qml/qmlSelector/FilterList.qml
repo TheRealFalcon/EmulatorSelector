@@ -1,14 +1,15 @@
 import QtQuick 1.0
 
 ListView {
-    property variant previousItem
+    //property variant previousItem
     id: currentList
 
     height: parent.height
     highlight: Rectangle { color: "#0000ff"; radius: 2; }
     focus: true
     currentIndex: -1
-    //anchors.leftMargin: 10
+    //anchors.leftMargin: 1
+
     delegate: Component {
         Item {
             id: item1
@@ -33,8 +34,8 @@ ListView {
                 anchors.fill: parent
                 onClicked: {
                     currentList.focus = true
-                    if (currentList.currentIndex == index) {
-                        currentList.previousItem = properties
+                    //currentList.previousItem = properties
+                    if (currentList.currentIndex == index) {                        
                         currentList.currentIndex = -1
                     }
                     else {

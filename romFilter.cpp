@@ -67,6 +67,12 @@ void RomFilter::removeCodeFilter(const QString &delimiter, const QString &code)
     _model->setFilterRegExp(_regex.pattern());
 }
 
+void RomFilter::clearCodeFilter()
+{
+    _regex.removeCodes();
+    _model->setFilterRegExp(_regex.pattern());
+}
+
 void RomFilter::setLetter(const QString &firstLetter)
 {
     _regex.setFirstLetter(firstLetter);

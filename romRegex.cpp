@@ -15,7 +15,9 @@ QString RomRegex::pattern()
     QString pattern = "^";
 
     //First character set
-    pattern += _firstLetter;
+    if (!_firstLetter.isEmpty()) {
+        pattern += '(' + _firstLetter + '|' + QChar(_firstLetter.at(0).toAscii() + 32) + ')';
+    }
 
     //body
     pattern += ".*";
@@ -36,7 +38,6 @@ QString RomRegex::pattern()
     pattern += _extension;
 
     pattern += "$";
-    //qDebug() << pattern;
     qDebug() << pattern;
     return pattern;
 }
@@ -54,6 +55,11 @@ void RomRegex::setCode(const QString &delimiter, const QString &code)
 void RomRegex::removeCode(const QString &delimiter, const QString &code)
 {
     _codes.remove(delimiter, code);
+}
+
+void RomRegex::removeCodes()
+{
+    _codes.clear();
 }
 
 void RomRegex::setExtension(const QString &extension)
