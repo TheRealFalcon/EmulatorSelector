@@ -81,7 +81,11 @@ void RomFilter::setLetter(const QString &firstLetter)
 
 void RomFilter::startRom(const QString &executable, const QString &directory, const QString &file, const QString &arguments)
 {
-    QProcess::execute(executable, QStringList() << directory + "/" + file << arguments);
-    //qDebug() << executable << directory << file << arguments;
+    QStringList exeArgs;
+    exeArgs << directory + "/" + file;
+    QStringList argsList = arguments.split(" ");
+    argsList.append(exeArgs);
+    qDebug() << argsList;
+    QProcess::execute(executable, argsList);
 }
 
