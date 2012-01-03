@@ -3,7 +3,6 @@ import QtQuick 1.0
 Rectangle {
     width: 800
     height: 600
-    //anchors.leftMargin: 20
     radius: 0
     gradient: Gradient {
         GradientStop {
@@ -19,7 +18,6 @@ Rectangle {
     clip: false
     smooth: false
     focus: true
-   // transformOrigin: Item.Center
 
     Row {
         focus: true
@@ -27,11 +25,15 @@ Rectangle {
         width: parent.width
         height: parent.height
 
+
+
+
         FilterList {
             id: emulatorList
             width: parent.width / 6
             KeyNavigation.right: standardCodesList
             model: emulatorModel
+            //currentIndex: 0
 
             XmlListModel {
                 id: emulatorModel
@@ -42,10 +44,11 @@ Rectangle {
             }
 
             onCurrentIndexChanged: {
-                if (currentIndex < 0) {
+                if (currentIndex < 1) {
                     romFilter.setEmulator("")
                 }
                 else {
+                    //console.log(currentIndex);
                     romFilter.setEmulator(emulatorList.currentItem.properties.extension)
                 }
             }
@@ -55,7 +58,9 @@ Rectangle {
             id: standardCodesList
             width: parent.width / 6
             KeyNavigation.left: emulatorList
+            KeyNavigation.right: countryCodesList
             model: standardCodesDisplayModel
+            currentIndex: 0
 
             XmlListModel {
                 id: standardCodesDisplayModel
@@ -74,10 +79,10 @@ Rectangle {
 
             onCurrentIndexChanged: {
                 romFilter.clearCodeFilter()
-                if (standardCodesList.currentIndex > -1) {
+                if (standardCodesList.currentIndex > 0) {
                     romFilter.addCodeFilter(standardCodesDelimiterModel.get(0).delimiter, standardCodesList.currentItem.properties.code)
                 }
-                if (countryCodesList.currentIndex > -1) {
+                if (countryCodesList.currentIndex > 0) {
                     romFilter.addCodeFilter(countryCodesDelimiterModel.get(0).delimiter, countryCodesList.currentItem.properties.code)
                 }
             }
@@ -88,7 +93,8 @@ Rectangle {
             width: parent.width / 6
             //position: 2
             model: countryCodesDisplayModel
-            //anchors.left: standardCodesList.right
+            KeyNavigation.left: standardCodesList
+            KeyNavigation.right: lettersList
 
             XmlListModel {
                 id: countryCodesDisplayModel
@@ -107,10 +113,10 @@ Rectangle {
 
             onCurrentIndexChanged: {
                 romFilter.clearCodeFilter()
-                if (standardCodesList.currentIndex > -1) {
+                if (standardCodesList.currentIndex > 0) {
                     romFilter.addCodeFilter(standardCodesDelimiterModel.get(0).delimiter, standardCodesList.currentItem.properties.code)
                 }
-                if (countryCodesList.currentIndex > -1) {
+                if (countryCodesList.currentIndex > 0) {
                     romFilter.addCodeFilter(countryCodesDelimiterModel.get(0).delimiter, countryCodesList.currentItem.properties.code)
                 }
             }
@@ -120,13 +126,15 @@ Rectangle {
             id: lettersList
             width: parent.width / 20
             model: lettersModel
+            KeyNavigation.left: countryCodesList
+            KeyNavigation.right: romsList
 
             ListModel {
                 id: lettersModel
             }
 
             onCurrentIndexChanged: {
-                if (currentIndex < 0) {
+                if (currentIndex < 1) {
                     romFilter.setLetter("")
                 }
                 else {
@@ -139,26 +147,53 @@ Rectangle {
             id: romsList
             width: parent.width / 2
             model: romModel
-            Keys.onEnterPressed: {
-                console.log("Enter was pressed")
-                onSelected()
-            }
+            KeyNavigation.left: lettersList
 
-        function onSelected() {
-            romFilter.startRom(romsList.currentItem.properties.executable,
-                               romsList.currentItem.properties.directory,
-                               romsList.currentItem.properties.file,
-                               romsList.currentItem.properties.arguments)
+            delegate: Component {
+                ListItem {
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            currentList.focus = true
+                            currentList.currentIndex = index
+                        }
+                        onDoubleClicked: {
+                            onRomSelected()
+                        }
+                    }
+                    function onSelected() {
+                        romFilter.startRom(romsList.currentItem.properties.executable,
+                                           romsList.currentItem.properties.directory,
+                                           romsList.currentItem.properties.file,
+                                           romsList.currentItem.properties.arguments)
+                    }
+
+                }
             }
+        }
+        //Arg...stupid xml model takes a few milliseconds longer to load and
+        //puts the currentIndex at the last item loaded.
+        //This is the only way I know to set the index to 0 after
+        //the entire model is loaded.
+        Timer {
+            interval: 200; running: true; repeat: false
+            onTriggered: setIndexes();
         }
     }
 
-    function makeLetters() {
+    function finishConstruction() {
+        lettersModel.append({display: "Any"});
         var i
         for (i=65; i<91; i++) {
             lettersModel.append({display: String.fromCharCode(i)})
         }
     }
 
-    Component.onCompleted: makeLetters();
+    function setIndexes() {
+        emulatorList.currentIndex = 0;
+        standardCodesList.currentIndex = 0;
+        countryCodesList.currentIndex = 0;
+    }
+
+    Component.onCompleted: finishConstruction();
 }

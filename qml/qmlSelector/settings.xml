@@ -1,5 +1,6 @@
 <Selector>
   <Code delimiters="[]" type="Standard">
+    <value key="">Any</value>
     <value key="!">Verified Good</value>
     <value key="b">Bad Dump</value>
     <value key="f">Fixed</value>
@@ -10,6 +11,7 @@
     <value key="Unl">Unlicensed</value>
   </Code>
   <Code delimiters="()" type="Country">
+    <value key="">Any</value>
     <value key="U">United States</value>
     <value key="J">Japan</value>
     <value key="G">Germany</value>
@@ -35,6 +37,7 @@
     <value key="1">Japan and Korea</value>
     <value key="4">USA and Brazil</value>
   </Code>
+  <Emulator name="Any" />
   <Emulator name="SNES">
     <Path>/usr/bin/zsnes</Path>
     <Args>-m</Args>
@@ -43,6 +46,7 @@
       <dir>/mnt/SimpleDrive/roms/snes/SNES Roms (GoodMerged, 2.04)</dir>
     </Search>
   </Emulator>
+
   <Emulator name="Genesis">
     <Path>/usr/bin/gens</Path>
     <Args>--fs</Args>
@@ -65,6 +69,14 @@
     <Extension>.z64</Extension>
     <Search>
       <dir>/mnt/SimpleDrive/roms/64/roms</dir>
+    </Search>
+  </Emulator>
+  <Emulator name="Dumb NES">
+    <Path>C:/proj/NES.exe</Path>
+    <Args></Args>
+    <Extension>.nes</Extension>
+    <Search>
+      <dir>C:/proj/NES</dir>
     </Search>
   </Emulator>
 </Selector>
