@@ -11,6 +11,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QIcon appIcon(":/images/Cute_Ball_Games.png");
+    app.setWindowIcon(appIcon);
     QmlApplicationViewer viewer;
 
     RomFilter filter; // = new RomFilter();
