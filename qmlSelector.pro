@@ -1,10 +1,4 @@
-install.path = install
-install.files = qml/qmlSelector/settings.xml \
-    libs/*
-target.path = install
-INSTALLS += target install
-
-QT += xml
+QT += xml declarative
 
 SOURCES += main.cpp \
     romModel.cpp \
@@ -25,25 +19,8 @@ RESOURCES += \
 
 RC_FILE = qmlSelector.rc
 
-# Please do not modify the following two lines. Required for deployment.
-include(qmlapplicationviewer/qmlapplicationviewer.pri)
-qtcAddDeployment()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+install.path = install
+install.files = settings.xml \
+    libs/*
+target.path = install
+INSTALLS += target install

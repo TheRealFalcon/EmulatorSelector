@@ -6,7 +6,7 @@
 #include <QtXml/QDomElement>
 #include "settings.h"
 
-const QString Settings::CONFIG_FILE = "qml/qmlSelector/settings.xml";
+const QString Settings::CONFIG_FILE = "settings.xml";
 
 Settings::Settings()
 {

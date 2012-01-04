@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>images/Cute_Ball_Games.png</file>
+        <file>qml/qmlSelector/FilterList.qml</file>
+        <file>qml/qmlSelector/ListItem.qml</file>
+        <file>qml/qmlSelector/main.qml</file>
     </qresource>
 </RCC>

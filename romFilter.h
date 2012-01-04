@@ -7,7 +7,7 @@
 #include <QtGui/QSortFilterProxyModel>
 #include <QtCore/Qt>
 #include <QObject>
-#include <QDeclarativeItem>
+//#include <QDeclarative/QDeclarativeItem>
 
 
 class RomFilter : public QObject

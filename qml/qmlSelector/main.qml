@@ -37,7 +37,7 @@ Rectangle {
 
             XmlListModel {
                 id: emulatorModel
-                source: "settings.xml"
+                source: "file:settings.xml"
                 query: "/Selector/Emulator"
                 XmlRole { name: "display"; query: "@name/string()" }
                 XmlRole { name: "extension"; query: "Extension/string()" }
@@ -64,7 +64,7 @@ Rectangle {
 
             XmlListModel {
                 id: standardCodesDisplayModel
-                source: "settings.xml"
+                source: "file:settings.xml"
                 query: '/Selector/Code[@type="Standard"]/value'
                 XmlRole { name: "display"; query: "string()" }
                 XmlRole { name: "code"; query: "@key/string()" }
@@ -72,7 +72,7 @@ Rectangle {
 
             XmlListModel {
                 id: standardCodesDelimiterModel
-                source: "settings.xml"
+                source: "file:settings.xml"
                 query: '/Selector/Code[@type="Standard"]'
                 XmlRole { name: "delimiter"; query: "@delimiters/string()" }
             }
@@ -98,7 +98,7 @@ Rectangle {
 
             XmlListModel {
                 id: countryCodesDisplayModel
-                source: "settings.xml"
+                source: "file:settings.xml"
                 query: '/Selector/Code[@type="Country"]/value'
                 XmlRole { name: "display"; query: 'string()' }
                 XmlRole { name: "code"; query: '@key/string()' }
@@ -106,7 +106,7 @@ Rectangle {
 
             XmlListModel {
                 id: countryCodesDelimiterModel
-                source: 'settings.xml'
+                source: 'file:settings.xml'
                 query: '/Selector/Code[@type="Country"]'
                 XmlRole { name: "delimiter"; query: "@delimiters/string()" }
             }
