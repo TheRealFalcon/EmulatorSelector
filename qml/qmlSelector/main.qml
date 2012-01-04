@@ -158,7 +158,7 @@ Rectangle {
                             currentList.currentIndex = index
                         }
                         onDoubleClicked: {
-                            onRomSelected()
+                            onSelected()
                         }
                     }
                     function onSelected() {
