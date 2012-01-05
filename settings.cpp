@@ -2,17 +2,23 @@
 #include <QtCore/QFile>
 #include <QtCore/QList>
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
 #include "settings.h"
 
-const QString Settings::CONFIG_FILE = "settings.xml";
+#ifdef WIN32
+    const QString Settings::SETTINGS_FILE = "settings.xml";
+#endif
+#ifdef UNIX
+    const QString Settings::SETTINGS_FILE = QDir::homePath() + "/.romtastic/settings.xml";
+#endif
 
 Settings::Settings()
 {
     doc = new QDomDocument();
-    QFile file(CONFIG_FILE);
-    if (!file.open(QIODevice::ReadWrite)) {
+    QFile file(Settings::SETTINGS_FILE);
+    if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "Couldn't open file";
         return;
     }

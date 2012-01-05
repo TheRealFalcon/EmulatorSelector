@@ -11,8 +11,8 @@ public:
     Settings();
     ~Settings();
     QList<Emulator> getEmulators();
-private:
-    static const QString CONFIG_FILE;
+    static const QString SETTINGS_FILE;
+private:    
     QDomDocument* doc;
 };
 

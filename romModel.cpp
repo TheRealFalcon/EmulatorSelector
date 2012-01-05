@@ -26,7 +26,8 @@ void RomModel::addRom(Rom rom)
 }
 
 int RomModel::rowCount(const QModelIndex & parent) const {
-     return romList.count();
+    Q_UNUSED(parent);
+    return romList.count();
  }
 
 

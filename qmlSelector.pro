@@ -1,4 +1,6 @@
 QT += xml declarative
+DESTDIR = bin
+TARGET = romtastic
 
 SOURCES += main.cpp \
     romModel.cpp \
@@ -14,13 +16,26 @@ HEADERS += \
     romFilter.h \
     romRegex.h
 
+OBJECTS_DIR = obj
+MOC_DIR = moc
+
 RESOURCES += \
     resources.qrc
 
 RC_FILE = qmlSelector.rc
+win32:DEFINES += WIN32
+unix:DEFINES += UNIX
+QMAKE_CXXFLAGS = -Wall -Wextra -Werror
 
-install.path = install
-install.files = settings.xml \
+win32:install.path = install
+win32:install.files = settings.xml \
     libs/*
-target.path = install
-INSTALLS += target install
+win32:target.path = install
+win32:INSTALLS += target install
+
+unix:settings.path = ~/.romtastic
+unix:settings.files = settings.xml
+unix:target.path = /usr/bin
+unix:INSTALLS += target settings
+
+

@@ -1,7 +1,6 @@
 #include "romRegex.h"
 
 #include <QtCore/QStringList>
-#include <QtCore/QDebug>
 
 RomRegex::RomRegex()
 {
@@ -38,7 +37,6 @@ QString RomRegex::pattern()
     pattern += _extension;
 
     pattern += "$";
-    qDebug() << pattern;
     return pattern;
 }
 
