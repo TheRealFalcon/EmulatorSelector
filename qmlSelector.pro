@@ -38,4 +38,10 @@ unix:settings.files = settings.xml
 unix:target.path = /usr/bin
 unix:INSTALLS += target settings
 
+OTHER_FILES += \
+    qmlSelector.rc \
+    qml/main.qml \
+    qml/FilterList.qml \
+    qml/ListItem.qml
+
 
